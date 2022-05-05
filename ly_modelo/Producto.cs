@@ -29,5 +29,20 @@ namespace ly_modelo
             this.precio = precio;
             this.idCategoria = idCategoria;
         }
+
+        public static List<UIElements.campoBusqueda> camposBusqueda()
+        {
+            List<UIElements.campoBusqueda> campos = new List<UIElements.campoBusqueda>();
+            //campos.Add(new UIElements.campoBusqueda("Nombre",150,UIElements.campoBusqueda.TipoCampo.TEXTO));
+            //campos.Add(new UIElements.campoBusqueda("Modelo",150,UIElements.campoBusqueda.TipoCampo.COMBO_BOX));
+            //campos.Add(new UIElements.campoBusqueda("Talla",150,UIElements.campoBusqueda.TipoCampo.COMBO_BOX));
+            //campos.Add(new UIElements.campoBusqueda("Color",150,UIElements.campoBusqueda.TipoCampo.COMBO_BOX));
+            //campos.Add(new UIElements.campoBusqueda("Codigo",150,UIElements.campoBusqueda.TipoCampo.TEXTO));
+            //campos.Add(new UIElements.campoBusqueda("Estatus",150,UIElements.campoBusqueda.TipoCampo.COMBO_BOX));
+            //campos.Add(new UIElements.campoBusqueda("Precio",150,UIElements.campoBusqueda.TipoCampo.NUMERO_BETWEEN));
+            //campos.Add(new UIElements.campoBusqueda("Categoria",150,UIElements.campoBusqueda.TipoCampo.COMBO_BOX));
+
+            return campos;
+        }
     }
 }

@@ -9,7 +9,22 @@ namespace ly_modelo
     {
         public int idCatalogo { get; set; }
         public string nombre { get; set; }
-        public int icono { get; set; }
+        public int iconoMenuFA { get; set; }
+        public string storedProcedure { get; set; }
+        public bool controlSistema { get; set; }
+        public bool layoutPersonalizado { get; set; }
+
+        //public string categoriaCatalogo { get; set; }
+
+        public Catalogo(int idCatalogo, string nombre, int icono,string storedProcedure,bool controlSistema, bool layoutPersonalizado)
+        {
+            this.idCatalogo = idCatalogo;
+            this.nombre = nombre;
+            this.iconoMenuFA = icono;
+            this.storedProcedure = storedProcedure;
+            this.controlSistema = controlSistema;
+            this.layoutPersonalizado = layoutPersonalizado;
+        }
 
     }
 }

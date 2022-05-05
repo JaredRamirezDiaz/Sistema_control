@@ -21,5 +21,16 @@ namespace ly_modelo
             this.idUsuario = idUsuario;
         }
 
+        public static List<UIElements.campoBusqueda> camposBusqueda()
+        {
+            List<UIElements.campoBusqueda> campos = new List<UIElements.campoBusqueda>();
+            //campos.Add(new UIElements.campoBusqueda("idOrden", 150, UIElements.campoBusqueda.TipoCampo.NUMERO));
+            //campos.Add(new UIElements.campoBusqueda("Estatus", 150, UIElements.campoBusqueda.TipoCampo.COMBO_BOX));
+            //campos.Add(new UIElements.campoBusqueda("fecha", 150, UIElements.campoBusqueda.TipoCampo.FECHA_BETWEEN));
+            //campos.Add(new UIElements.campoBusqueda("Usuario", 150, UIElements.campoBusqueda.TipoCampo.COMBO_BOX));
+            
+            return campos;
+        }
+
     }
 }

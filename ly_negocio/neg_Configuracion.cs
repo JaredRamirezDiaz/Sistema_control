@@ -8,9 +8,9 @@ namespace ly_negocio
 {
     public class neg_Configuracion
     {
-        public static List<Configuracion> obtenerTodos()
+        public static List<Configuracion> obtenerTodos(int idEmpresa)
         {
-            return dat_Configuracion.obtenerTodos();
+            return dat_Configuracion.obtenerTodos(idEmpresa);
         }
         public static bool agregar(Configuracion configuracion)
         {
