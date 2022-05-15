@@ -17,7 +17,7 @@ namespace ly_datos
             {
                 if (conexion == "Zapateria")
                 {
-                    SqlConnection.ConnectionString = @"Data Source=np:\\.\pipe\LOCALDB#3FCEDFA9\tsql\query;Initial Catalog=bd_zapateria;User ID=userZapateria;Password=contraseña";
+                    SqlConnection.ConnectionString = @"Data Source=np:\\.\pipe\LOCALDB#3DBB2833\tsql\query;Initial Catalog=bd_zapateria;User ID=userZapateria;Password=contraseña";
                 }
                 
 
