@@ -18,12 +18,15 @@ namespace ly_modelo
             Fecha           =   6,
             FechaRango      =   7,
             NumeroUpDown    =   8,
-            GridView        =   9
+            GridView        =   9,
+            CardVistaPrevia =   10
         }
 
         public TipoElemento tipoElemento { get; set; }
         public int ancho { get; set; }
         public int alto { get; set; }
+        
+
 
         public UIElements(TipoElemento tipoElemento, int ancho, int alto)
         {
@@ -62,53 +65,101 @@ namespace ly_modelo
 
 
     }
-        public class ElementoLayoutGrid : UIElements
+    public class ElementoLayoutGrid : UIElements
+    {
+        public List<ColumnaGrid> columnas { get; set; }
+        public List<string[]> elementos { get; set; }
+        public string dock { get; set; }
+
+
+        //public ElementoLayoutGrid(TipoElemento tipoElemento, int ancho, int alto, List<ColumnaGrid> columnas, List<string[]> elementos,string dock) : base(tipoElemento, ancho, alto)
+        //{
+        //    this.columnas = columnas;
+        //    this.elementos = elementos;
+        //    this.dock = dock;
+        //}
+
+        public ElementoLayoutGrid(TipoElemento tipoElemento, int ancho, int alto,string columnasJSON, string elementosJSON, string dock) : base(tipoElemento, ancho, alto)
         {
-            public List<ColumnaGrid> columnas { get; set; }
-            public List<string[]> elementos { get; set; }
-
-
-            public ElementoLayoutGrid(TipoElemento tipoElemento, int ancho, int alto, List<ColumnaGrid> columnas, List<string[]> elementos) : base(tipoElemento, ancho, alto)
-            {
-                this.columnas = columnas;
-                this.elementos = elementos;
-            }
-
-            public ElementoLayoutGrid(TipoElemento tipoElemento, int ancho, int alto,string columnasJSON, string elementosJSON) : base(tipoElemento, ancho, alto)
-            {
-                this.columnas = JsonSerializer.Deserialize<List<ColumnaGrid>>(columnasJSON);
-                this.elementos = JsonSerializer.Deserialize<List<string[]>>(elementosJSON);
-            }
-
-            public class CeldaGrid{
-                public string clave { get; set; }
-                public string valor { get; set; }
-
-                public CeldaGrid(string clave, string valor) {
-                    this.clave = clave;
-                    this.valor = valor;
-                }
-
-                public CeldaGrid() { }
-            }
-
-            public class ColumnaGrid
-            {
-                public string columna { get; set; }
-                public bool buscable { get; set; }
-                public bool visible { get; set; }
-                public bool clavePrimaria { get; set; }
-                public string tipoColumna { get; set; }
-
-                public ColumnaGrid(string columna,bool buscable, bool visible, bool clavePrimaria, string tipoColumna)
-                {
-                    this.columna = columna;
-                    this.buscable = buscable;
-                    this.visible = visible;
-                    this.clavePrimaria = clavePrimaria;
-                    this.tipoColumna = tipoColumna;
-                }
-                public ColumnaGrid() { }
-            }
+            this.columnas = JsonSerializer.Deserialize<List<ColumnaGrid>>(columnasJSON);
+            this.elementos=(elementosJSON!=String.Empty)? this.elementos = JsonSerializer.Deserialize<List<string[]>>(elementosJSON):new List<string[]>();
+            this.dock = dock;
         }
+
+        public class CeldaGrid{
+            public string clave { get; set; }
+            public string valor { get; set; }
+
+            public CeldaGrid(string clave, string valor) {
+                this.clave = clave;
+                this.valor = valor;
+            }
+
+            public CeldaGrid() { }
+        }
+
+        public class ColumnaGrid
+        {
+            public string columna { get; set; }
+            public bool buscable { get; set; }
+            public bool visible { get; set; }
+            public bool clavePrimaria { get; set; }
+            public string tipoColumna { get; set; }
+            public int posicion { get; set; }
+
+            public ColumnaGrid(string columna,bool buscable, bool visible, bool clavePrimaria,int posicion, string tipoColumna)
+            {
+                this.columna = columna;
+                this.buscable = buscable;
+                this.visible = visible;
+                this.clavePrimaria = clavePrimaria;
+                this.posicion = posicion;
+                this.tipoColumna = tipoColumna;
+            }
+            public ColumnaGrid() { }
+        }
+    }
+
+    public class ElementoLayoutCardVistaPrevia : UIElements
+    {
+        public List<CampoCardVistaPrevia> campos { get; set; }
+        public string dock { get; set; }
+
+
+        //public ElementoLayoutGrid(TipoElemento tipoElemento, int ancho, int alto, List<ColumnaGrid> columnas, List<string[]> elementos,string dock) : base(tipoElemento, ancho, alto)
+        //{
+        //    this.columnas = columnas;
+        //    this.elementos = elementos;
+        //    this.dock = dock;
+        //}
+
+        public ElementoLayoutCardVistaPrevia(TipoElemento tipoElemento, int ancho, int alto, string camposJSON, string dock) : base(tipoElemento, ancho, alto)
+        {
+            this.campos = JsonSerializer.Deserialize<List<CampoCardVistaPrevia>>(camposJSON);
+            this.dock = dock;
+        }
+
+        
+
+        public class CampoCardVistaPrevia
+        {
+            public string columna { get; set; }
+            public bool buscable { get; set; }
+            public bool visible { get; set; }
+            public bool clavePrimaria { get; set; }
+            public string tipoColumna { get; set; }
+            public int posicion { get; set; }
+
+            public CampoCardVistaPrevia(string columna, bool buscable, bool visible, bool clavePrimaria, int posicion, string tipoColumna)
+            {
+                this.columna = columna;
+                this.buscable = buscable;
+                this.visible = visible;
+                this.clavePrimaria = clavePrimaria;
+                this.posicion = posicion;
+                this.tipoColumna = tipoColumna;
+            }
+            public CampoCardVistaPrevia() { }
+        }
+    }
 }

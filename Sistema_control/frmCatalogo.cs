@@ -34,6 +34,11 @@ namespace Sistema_control
         #region Panel de búsqueda
         public void crearPanelBusqueda(string tipoForm)
         {
+            btnBusqueda.BackColor = Sistema.obtenerConfiguracionColor("color_primario");
+            btnBusqueda.BorderColor = Sistema.obtenerConfiguracionColor("color_primario");
+            btnBusqueda.IconColor = Sistema.obtenerConfiguracionColor("color_secundario");
+            btnBusqueda.ForeColor = Sistema.obtenerConfiguracionColor("color_secundario");
+
             List<UIElements.campoBusqueda> campos = neg_UIElements.obtenerCamposDeBusqueda(tipoForm);
 
             for (int i = 0; i <campos.Count; i++)
@@ -46,7 +51,7 @@ namespace Sistema_control
         {
             FlowLayoutPanel nuevoPanel = new FlowLayoutPanel();
             //nuevoPanel.Location = posicion;
-            nuevoPanel.BackColor = Color.LightGray;
+            //nuevoPanel.BackColor = Color.LightGray;
 
             //+++++++++++++++++++++++++++++++++++++++++++++++++ Label
             Label lblEtiqueta = new Label();
@@ -73,6 +78,7 @@ namespace Sistema_control
             nuevoPanel.Controls.Add(lblEtiqueta);
             nuevoPanel.Controls.Add(crearControlCampo(campo));
 
+            nuevoPanel.AutoSize = true;
 
 
             return nuevoPanel;
@@ -134,6 +140,9 @@ namespace Sistema_control
                     case UIElements.TipoElemento.GridView:
                         controles.Add(crearGrid((elementosLayout[i] as ElementoLayoutGrid)));
                         break;
+                    case UIElements.TipoElemento.CardVistaPrevia:
+                        controles.Add(crearCardVistaPrevia((elementosLayout[i] as ElementoLayoutCardVistaPrevia)));
+                        break;
                     default:
                         break;
                 }
@@ -144,13 +153,32 @@ namespace Sistema_control
             {
                 panControlesCatalogo.Controls.Add(control);
             }
+
+            //foreach (Control control1 in panControlesCatalogo.Controls)
+            //{
+            //    int w, h, x, y;
+            //    w = control1.Width;
+            //    h = control1.Height;
+            //    x = control1.Location.X;
+            //    y = control1.Location.Y;
+
+            //    control1.Dock = DockStyle.None;
+            //    control1.Width = w;
+            //    control1.Height = h;
+            //    control1.Location = new Point(x, y);
+
+            //    control1.Anchor= AnchorStyles.Bottom | AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            //}
         }
 
         private DataGridView crearGrid(ElementoLayoutGrid elementoGrid)
         {
+           
+            
             DataGridView nuevoGrid = new DataGridView();
-            nuevoGrid.Size = new Size(panControlesCatalogo.Width/2, elementoGrid.alto);
-            var d = nuevoGrid.Anchor;
+            //nuevoGrid.Size = new Size(panControlesCatalogo.Width/2, elementoGrid.alto);
+            //var d = nuevoGrid.Anchor;
+            
             foreach (ElementoLayoutGrid.ColumnaGrid column in elementoGrid.columnas)
             {
                 DataGridViewColumn nuevaCol = new DataGridViewColumn();
@@ -159,7 +187,7 @@ namespace Sistema_control
                 nuevaCol.Visible = column.visible;
                 nuevaCol.CellTemplate= new DataGridViewTextBoxCell();
                 nuevoGrid.Columns.Add(nuevaCol);
-
+                nuevaCol.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             }
 
             foreach (string[] linea in elementoGrid.elementos)
@@ -167,10 +195,153 @@ namespace Sistema_control
                 nuevoGrid.Rows.Add(linea);
             }
 
+            switch (elementoGrid.dock)
+            {
+                case "Top":
+                    nuevoGrid.Dock = DockStyle.Top;
+                    //nuevoGrid.Height = elementoGrid.alto;
+                    //nuevoGrid.Width = panControlesCatalogo.Width;
+                    //nuevoGrid.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
+                    break;
+                case "Right":
+                    nuevoGrid.Dock = DockStyle.Right;
+                    //nuevoGrid.Width = elementoGrid.ancho;
+                    //nuevoGrid.Height = panControlesCatalogo.Height;
+                    //nuevoGrid.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+                    break;
+                case "Bottom":
+                    nuevoGrid.Dock = DockStyle.Bottom;
+                    //nuevoGrid.Anchor = AnchorStyles.Bottom | AnchorStyles.Top ;
+                    //nuevoGrid.Height = elementoGrid.alto;
+                    //nuevoPanelGrid.Width = panControlesCatalogo.Width;
+                    break;
+                case "Left":
+                    nuevoGrid.Dock = DockStyle.Left;
+                    //nuevoGrid.Width = elementoGrid.ancho;
+                    //nuevoGrid.Height = panControlesCatalogo.Height;
+                    //nuevoGrid.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+                    break;
+                case "Fill":
+                    nuevoGrid.Dock = DockStyle.Fill;
+                    break;
+                default:
+                    nuevoGrid.Dock = DockStyle.None;
+                    //nuevoGrid.Width = elementoGrid.ancho;
+                    //nuevoGrid.Height = elementoGrid.alto;
+                    //nuevoGrid.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top | AnchorStyles.Bottom;
+
+                    break;
+            }
+
+            nuevoGrid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            nuevoGrid.DefaultCellStyle.SelectionBackColor = Sistema.obtenerConfiguracionColor("color_primario");
+            nuevoGrid.DefaultCellStyle.SelectionForeColor = Sistema.obtenerConfiguracionColor("color_texto_secundario");
+
             
+            
+
             return nuevoGrid;
         }
 
+        private Panel crearCardVistaPrevia(ElementoLayoutCardVistaPrevia elementoCard)
+        {
+            FlowLayoutPanel nuevoPanelCard = new FlowLayoutPanel();
+            //nuevoPanelCard.Width = elementoCard.ancho;
+            //nuevoPanelCard.Height = elementoCard.alto;
+            //nuevoPanelCard.MaximumSize = new Size(elementoCard.ancho,elementoCard.alto);
+
+            nuevoPanelCard.BackColor = Color.Red;
+
+            foreach (ElementoLayoutCardVistaPrevia.CampoCardVistaPrevia campo in elementoCard.campos)
+            {
+                nuevoPanelCard.Controls.Add(crearCampoCardVistaPrevia(campo));
+            }
+
+            switch (elementoCard.dock)
+            {
+                case "Top":
+                    nuevoPanelCard.Dock = DockStyle.Top;
+                    //nuevoPanelCard.Height = elementoCard.alto;
+                    //nuevoPanelCard.Width = panControlesCatalogo.Width;
+                    //nuevoGrid.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
+                    break;
+                case "Right":
+                    nuevoPanelCard.Dock = DockStyle.Right;
+                    //nuevoPanelCard.Width = elementoCard.ancho;
+                    //nuevoPanelCard.Height = panControlesCatalogo.Height;
+                    //nuevoGrid.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+                    break;
+                case "Bottom":
+                    nuevoPanelCard.Dock = DockStyle.Bottom;
+                    //nuevoPanelCard.Height = elementoCard.alto;
+                    //nuevoPanelCard.Width = panControlesCatalogo.Width;
+                    //nuevoGrid.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
+                    break;
+                case "Left":
+                    nuevoPanelCard.Dock = DockStyle.Left;
+                    //nuevoPanelCard.Width = elementoCard.ancho;
+                    //nuevoPanelCard.Height = panControlesCatalogo.Height;
+                    //nuevoGrid.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+                    break;
+                case "Fill":
+                    nuevoPanelCard.Dock = DockStyle.Fill;
+                    break;
+                default:
+                    nuevoPanelCard.Dock = DockStyle.None;
+                    //nuevoPanelCard.Width = elementoCard.ancho;
+                    //nuevoPanelCard.Height = elementoCard.alto;
+                    nuevoPanelCard.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top | AnchorStyles.Bottom;
+
+                    break;
+            }
+
+            nuevoPanelCard.AutoScroll = true;
+
+            return nuevoPanelCard;
+        }
+
+        public Panel crearCampoCardVistaPrevia(ElementoLayoutCardVistaPrevia.CampoCardVistaPrevia campo)
+        {
+            Panel nuevoCampoCard = new Panel();
+
+            Label labelCampo = new Label();
+            labelCampo.Text = campo.columna;
+
+            nuevoCampoCard.Controls.Add(labelCampo);
+
+            nuevoCampoCard.Height = 32;
+            
+            nuevoCampoCard.Dock = DockStyle.Top;
+            
+            
+            return nuevoCampoCard;
+        }
+
         #endregion
+
+        private void btnBusqueda_Click(object sender, EventArgs e)
+        {
+            if (panFlowBusqueda.Height==0)
+            {
+                btnBusqueda.BackColor = Sistema.obtenerConfiguracionColor("color_secundario");
+                btnBusqueda.BorderColor = Sistema.obtenerConfiguracionColor("color_primario");
+                btnBusqueda.IconColor = Sistema.obtenerConfiguracionColor("color_primario");
+                btnBusqueda.ForeColor = Sistema.obtenerConfiguracionColor("color_primario");
+                //panFlowBusqueda.Height= Sistema.obtenerConfiguracionInt("alto_panel_busqueda");
+                panFlowBusqueda.AutoSize = true;
+
+                btnBusqueda.Text = "Buscar  ▲";
+            }
+            else
+            {
+                btnBusqueda.BackColor = Sistema.obtenerConfiguracionColor("color_primario");
+                btnBusqueda.BorderColor = Sistema.obtenerConfiguracionColor("color_primario");
+                btnBusqueda.IconColor = Sistema.obtenerConfiguracionColor("color_secundario");
+                btnBusqueda.ForeColor = Sistema.obtenerConfiguracionColor("color_secundario");
+                panFlowBusqueda.AutoSize = false;
+                panFlowBusqueda.Height = 0;
+                btnBusqueda.Text = "Buscar  ▼";
+            }
+        }
     }
 }

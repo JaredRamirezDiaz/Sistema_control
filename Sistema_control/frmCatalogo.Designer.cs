@@ -30,10 +30,11 @@ namespace Sistema_control
         private void InitializeComponent()
         {
             this.panSuperiorCatalogo = new System.Windows.Forms.Panel();
+            this.btnBusqueda = new Sistema_control.StlButton();
             this.btnCerrarCatalogo = new FontAwesome.Sharp.IconPictureBox();
             this.panInferiorCatalogo = new System.Windows.Forms.Panel();
             this.panPrincipalCatalogo = new System.Windows.Forms.Panel();
-            this.panControlesCatalogo = new System.Windows.Forms.FlowLayoutPanel();
+            this.panControlesCatalogo = new System.Windows.Forms.Panel();
             this.panFlowBusqueda = new System.Windows.Forms.FlowLayoutPanel();
             this.panSuperiorCatalogo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnCerrarCatalogo)).BeginInit();
@@ -43,12 +44,39 @@ namespace Sistema_control
             // panSuperiorCatalogo
             // 
             this.panSuperiorCatalogo.BackColor = System.Drawing.SystemColors.Control;
+            this.panSuperiorCatalogo.Controls.Add(this.btnBusqueda);
             this.panSuperiorCatalogo.Controls.Add(this.btnCerrarCatalogo);
             this.panSuperiorCatalogo.Dock = System.Windows.Forms.DockStyle.Top;
             this.panSuperiorCatalogo.Location = new System.Drawing.Point(0, 0);
             this.panSuperiorCatalogo.Name = "panSuperiorCatalogo";
             this.panSuperiorCatalogo.Size = new System.Drawing.Size(1300, 30);
             this.panSuperiorCatalogo.TabIndex = 0;
+            // 
+            // btnBusqueda
+            // 
+            this.btnBusqueda.BackColor = System.Drawing.Color.DarkGray;
+            this.btnBusqueda.BackgroundColor = System.Drawing.Color.DarkGray;
+            this.btnBusqueda.BorderColor = System.Drawing.Color.DimGray;
+            this.btnBusqueda.BorderRadius = 5;
+            this.btnBusqueda.BorderSize = 1;
+            this.btnBusqueda.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnBusqueda.FlatAppearance.BorderSize = 0;
+            this.btnBusqueda.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBusqueda.ForeColor = System.Drawing.Color.White;
+            this.btnBusqueda.IconChar = FontAwesome.Sharp.IconChar.Search;
+            this.btnBusqueda.IconColor = System.Drawing.Color.White;
+            this.btnBusqueda.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnBusqueda.IconSize = 25;
+            this.btnBusqueda.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.btnBusqueda.Location = new System.Drawing.Point(0, 0);
+            this.btnBusqueda.Name = "btnBusqueda";
+            this.btnBusqueda.Size = new System.Drawing.Size(90, 30);
+            this.btnBusqueda.TabIndex = 2;
+            this.btnBusqueda.Text = "Buscar  ▼";
+            this.btnBusqueda.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnBusqueda.TextColor = System.Drawing.Color.White;
+            this.btnBusqueda.UseVisualStyleBackColor = false;
+            this.btnBusqueda.Click += new System.EventHandler(this.btnBusqueda_Click);
             // 
             // btnCerrarCatalogo
             // 
@@ -92,9 +120,10 @@ namespace Sistema_control
             // panControlesCatalogo
             // 
             this.panControlesCatalogo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panControlesCatalogo.Location = new System.Drawing.Point(0, 130);
+            this.panControlesCatalogo.Location = new System.Drawing.Point(0, 30);
             this.panControlesCatalogo.Name = "panControlesCatalogo";
-            this.panControlesCatalogo.Size = new System.Drawing.Size(1300, 490);
+            this.panControlesCatalogo.Padding = new System.Windows.Forms.Padding(0, 5, 0, 5);
+            this.panControlesCatalogo.Size = new System.Drawing.Size(1300, 590);
             this.panControlesCatalogo.TabIndex = 1;
             // 
             // panFlowBusqueda
@@ -102,7 +131,7 @@ namespace Sistema_control
             this.panFlowBusqueda.Dock = System.Windows.Forms.DockStyle.Top;
             this.panFlowBusqueda.Location = new System.Drawing.Point(0, 30);
             this.panFlowBusqueda.Name = "panFlowBusqueda";
-            this.panFlowBusqueda.Size = new System.Drawing.Size(1300, 100);
+            this.panFlowBusqueda.Size = new System.Drawing.Size(1300, 0);
             this.panFlowBusqueda.TabIndex = 0;
             // 
             // frmCatalogo
@@ -129,6 +158,7 @@ namespace Sistema_control
         private System.Windows.Forms.Panel panPrincipalCatalogo;
         private FontAwesome.Sharp.IconPictureBox btnCerrarCatalogo;
         private System.Windows.Forms.FlowLayoutPanel panFlowBusqueda;
-        private System.Windows.Forms.FlowLayoutPanel panControlesCatalogo;
+        private System.Windows.Forms.Panel panControlesCatalogo;
+        private StlButton btnBusqueda;
     }
 }

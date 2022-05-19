@@ -124,13 +124,13 @@ namespace Sistema_control
 
         private void crearMenu()
         {
-            List<Configuracion> config = neg_Configuracion.obtenerTodos(idEmpresa:1);
-            Color colorPrimario = System.Drawing.ColorTranslator.FromHtml(config.Find(conf => conf.nombreParametro == "color_primario").valor);
-            Color colorSecundario = System.Drawing.ColorTranslator.FromHtml(config.Find(conf => conf.nombreParametro == "color_secundario").valor);
-            Color colorTexto = System.Drawing.ColorTranslator.FromHtml(config.Find(conf => conf.nombreParametro == "color_texto_primario").valor);
-            Color colorTextoSecundario = System.Drawing.ColorTranslator.FromHtml(config.Find(conf => conf.nombreParametro == "color_texto_secundario").valor);
-            Color colorBarraSuperior = System.Drawing.ColorTranslator.FromHtml(config.Find(conf => conf.nombreParametro == "color_barra_superior").valor);
-            Color colorTextoBarraSuperior = System.Drawing.ColorTranslator.FromHtml(config.Find(conf => conf.nombreParametro == "color_texto_barra_superior").valor);
+            //List<Configuracion> config = neg_Configuracion.obtenerTodos(idEmpresa:1);
+            //Color colorPrimario = System.Drawing.ColorTranslator.FromHtml(config.Find(conf => conf.nombreParametro == "color_primario").valor);
+            //Color colorSecundario = System.Drawing.ColorTranslator.FromHtml(config.Find(conf => conf.nombreParametro == "color_secundario").valor);
+            //Color colorTexto = System.Drawing.ColorTranslator.FromHtml(config.Find(conf => conf.nombreParametro == "color_texto_primario").valor);
+            //Color colorTextoSecundario = System.Drawing.ColorTranslator.FromHtml(config.Find(conf => conf.nombreParametro == "color_texto_secundario").valor);
+            //Color colorBarraSuperior = System.Drawing.ColorTranslator.FromHtml(config.Find(conf => conf.nombreParametro == "color_barra_superior").valor);
+            //Color colorTextoBarraSuperior = System.Drawing.ColorTranslator.FromHtml(config.Find(conf => conf.nombreParametro == "color_texto_barra_superior").valor);
 
             List<Catalogo> listaCatalogos = neg_Catalogo.obtenerTodos();
 
@@ -141,20 +141,20 @@ namespace Sistema_control
              
             int widthBoton = ancho_panel_izquierdo;
             
-            panMenu.BackColor = colorPrimario;
+            panMenu.BackColor = Sistema.obtenerConfiguracionColor("color_primario");
             
             //panMenu.Width = anchoPanelIzq;
             //panMenu.Location=new Point(0, panMenu.Location.Y);
 
-            panLateralIzq.BackColor = colorPrimario;
-            panLateralIzq.Width = ancho_panel_izquierdo;
+            panLateralIzq.BackColor = Sistema.obtenerConfiguracionColor("color_primario");
+            panLateralIzq.Width = Sistema.obtenerConfiguracionInt("ancho_panel_izquierdo");
 
-            panSuperior.BackColor = colorBarraSuperior;
-            iconSalir.ForeColor = colorTextoBarraSuperior;
-            iconMaximizar.ForeColor = colorTextoBarraSuperior;
-            iconMinimizar.ForeColor = colorTextoBarraSuperior;
-            iconVentana.ForeColor = colorTextoBarraSuperior;
-            iconColapsarMenu.ForeColor = colorTexto;
+            panSuperior.BackColor = Sistema.obtenerConfiguracionColor("color_barra_superior");
+            iconSalir.ForeColor = Sistema.obtenerConfiguracionColor("color_texto_barra_superior");
+            iconMaximizar.ForeColor = Sistema.obtenerConfiguracionColor("color_texto_barra_superior");
+            iconMinimizar.ForeColor = Sistema.obtenerConfiguracionColor("color_texto_barra_superior");
+            iconVentana.ForeColor = Sistema.obtenerConfiguracionColor("color_texto_barra_superior");
+            iconColapsarMenu.ForeColor = Sistema.obtenerConfiguracionColor("color_texto_primario");
             
 
 
@@ -163,11 +163,11 @@ namespace Sistema_control
             {
                 int posY = (alto_boton_menu * i) + ((int)(margen_y_Menu * (i + 0.5)));
                 int posX = (int)(margen_x_menu * .5);
-                panMenu.Controls.Add(createButtonMenu(new Point(posX, posY), alto_boton_menu, widthBoton, colorPrimario, colorSecundario, colorTextoSecundario, listaCatalogos[i].iconoMenuFA, listaCatalogos[i].nombre));
+                panMenu.Controls.Add(createButtonMenu(new Point(posX, posY), alto_boton_menu, widthBoton, listaCatalogos[i].iconoMenuFA, listaCatalogos[i].nombre));
             }
         }
 
-        private Button createButtonMenu(Point location, double height, int width, Color colorPrimario,Color colorSecundario,Color colorTexto, int urlImagen,string textoBoton)
+        private Button createButtonMenu(Point location, double height, int width, int urlImagen,string textoBoton)
         {
             // This will get the current WORKING directory (i.e. \bin\Debug)
             string workingDirectory = Environment.CurrentDirectory;
@@ -177,10 +177,10 @@ namespace Sistema_control
 
             StlButton nuevoBoton = new StlButton();
             nuevoBoton.BorderRadius = 0;
-            nuevoBoton.ForeColor = colorTexto;
+            nuevoBoton.ForeColor = Sistema.obtenerConfiguracionColor("color_texto_secundario");
             nuevoBoton.Text = textoBoton;
             nuevoBoton.Location = location;
-            nuevoBoton.BackColor = colorPrimario;
+            nuevoBoton.BackColor = Sistema.obtenerConfiguracionColor("color_primario");
             nuevoBoton.FlatStyle = FlatStyle.Flat;
             nuevoBoton.Width = width;
             nuevoBoton.Height = (int)height;
@@ -190,13 +190,13 @@ namespace Sistema_control
 
             nuevoBoton.ImageAlign = ContentAlignment.MiddleLeft;
             nuevoBoton.IconSize = escala_icono_menu;
-            nuevoBoton.IconColor = colorTexto;
+            nuevoBoton.IconColor = Sistema.obtenerConfiguracionColor("color_texto_secundario");
 
             nuevoBoton.Font = new Font(FontFamily.GenericSansSerif, 15);
 
-            nuevoBoton.FlatAppearance.MouseOverBackColor = colorSecundario;
-            nuevoBoton.MouseEnter += (object sender, EventArgs e) => { ((StlButton)sender).ForeColor = colorPrimario; ((StlButton)sender).IconColor = colorPrimario; };
-            nuevoBoton.MouseLeave += (object sender, EventArgs e) => { ((StlButton)sender).ForeColor = colorTexto; ((StlButton)sender).IconColor = colorTexto; };
+            nuevoBoton.FlatAppearance.MouseOverBackColor = Sistema.obtenerConfiguracionColor("color_secundario");
+            nuevoBoton.MouseEnter += (object sender, EventArgs e) => { ((StlButton)sender).ForeColor = Sistema.obtenerConfiguracionColor("color_primario"); ((StlButton)sender).IconColor = Sistema.obtenerConfiguracionColor("color_primario"); };
+            nuevoBoton.MouseLeave += (object sender, EventArgs e) => { ((StlButton)sender).ForeColor = Sistema.obtenerConfiguracionColor("color_texto_secundario"); ((StlButton)sender).IconColor = Sistema.obtenerConfiguracionColor("color_texto_secundario"); };
 
             nuevoBoton.Click += (object sender, EventArgs e) => { AbrirFormulario<frmCatalogo>("Catalogo",textoBoton); };
 

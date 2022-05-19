@@ -4,6 +4,54 @@ using System.Text;
 
 namespace ly_modelo
 {
+    public static class Sistema
+    {
+        private static Dictionary<string, Valor> Configuraciones = new Dictionary<string, Valor>();
+
+        public static int obtenerConfiguracionInt(string parametro)
+        {
+            return (int)(Configuraciones[parametro].valor);
+        }
+
+        public static string obtenerConfiguracionString(string parametro)
+        {
+            return (string)(Configuraciones[parametro].valor);
+        }
+
+        public static System.Drawing.Color obtenerConfiguracionColor(string parametro)
+        {
+            return (System.Drawing.Color)(Configuraciones[parametro].valor);
+        }
+
+        public static void cargarConfiguraciones(List<Configuracion> listaConf)
+        {
+            foreach (Configuracion configuracion in listaConf)
+            {
+                switch (configuracion.tipoValor)
+                {
+                    case "Color":
+                        Configuraciones.Add(configuracion.nombreParametro, new Valor(configuracion.tipoValor, System.Drawing.ColorTranslator.FromHtml(configuracion.valor)));
+                        break;
+                    case "Entero":
+                        Configuraciones.Add(configuracion.nombreParametro, new Valor(configuracion.tipoValor, int.Parse(configuracion.valor)));
+                        break;
+                }
+            }
+        }
+
+        public class Valor
+        {
+            public string tipoValor { get; set; }
+            public Object valor { get; set; }
+            
+            public Valor(string tipoValor, Object valor)
+            {
+                this.tipoValor = tipoValor;
+                this.valor = valor;
+            }
+        }
+
+    }
     public class Configuracion
     {
         public int idConfiguracion { get; set; }
@@ -12,8 +60,9 @@ namespace ly_modelo
         public string descripcion { get; set; }
         public string empresa { get; set; }
         public string tipoParametro { get; set; }
+            public string tipoValor { get; set; }
 
-        public Configuracion(int idConfiguracion = 0, string nombreParametro="", string valor="",string descripcion="", string empresa="", string tipoParametro="")
+            public Configuracion(int idConfiguracion = 0, string nombreParametro="", string valor="",string descripcion="", string empresa="", string tipoParametro="", string tipoValor="")
         {
             this.idConfiguracion = idConfiguracion;
             this.nombreParametro = nombreParametro;
@@ -21,6 +70,7 @@ namespace ly_modelo
             this.descripcion = descripcion;
             this.empresa = empresa;
             this.tipoParametro = tipoParametro;
+                this.tipoValor = tipoValor;
         }
 
         public static List<UIElements.campoBusqueda> camposBusqueda()

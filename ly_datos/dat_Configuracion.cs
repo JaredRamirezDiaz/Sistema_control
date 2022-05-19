@@ -33,7 +33,8 @@ namespace ly_datos
                             valor: sqldr_obtenerCatalogos.GetString("valor"),
                             descripcion: sqldr_obtenerCatalogos.GetString("descripcion"),
                             empresa: sqldr_obtenerCatalogos.GetString("empresa"),
-                            tipoParametro: sqldr_obtenerCatalogos.GetString("tipoParametro")
+                            tipoParametro: sqldr_obtenerCatalogos.GetString("tipoParametro"),
+                            tipoValor: sqldr_obtenerCatalogos.GetString("tipoValor")
                         ));
                     }
                 }

@@ -60,7 +60,7 @@ namespace ly_datos
             //return listaCampos;
 
             Conexion conexion = new Conexion("Zapateria");
-            SqlDataReader sqldr_ObtenerCamposBusqueda = null;
+            SqlDataReader sqldr_ObtenerElementosLayout = null;
             
             try
             {
@@ -68,18 +68,34 @@ namespace ly_datos
                 conexion.SqlCommand.CommandType =CommandType.StoredProcedure;
                 conexion.SqlCommand.CommandText = "sp_catalogo_obtener_elementos_layout";
                 conexion.SqlCommand.Parameters.Add(new SqlParameter("@nombreCatalogo", SqlDbType.VarChar)).Value = nombreCatalogo;
-                sqldr_ObtenerCamposBusqueda = conexion.SqlCommand.ExecuteReader();
-                if (sqldr_ObtenerCamposBusqueda.HasRows)
+                sqldr_ObtenerElementosLayout = conexion.SqlCommand.ExecuteReader();
+                if (sqldr_ObtenerElementosLayout.HasRows)
                 {
-                    while (sqldr_ObtenerCamposBusqueda.Read())
+                    while (sqldr_ObtenerElementosLayout.Read())
                     {
-                        listaCampos.Add(new ElementoLayoutGrid(
-                            tipoElemento:(UIElements.TipoElemento)sqldr_ObtenerCamposBusqueda.GetInt32("idTipoElemento"),
-                            ancho: sqldr_ObtenerCamposBusqueda.GetInt32("ancho"),
-                            alto: sqldr_ObtenerCamposBusqueda.GetInt32("alto"),
-                            elementosJSON:sqldr_ObtenerCamposBusqueda.GetString("elementos"),
-                            columnasJSON:sqldr_ObtenerCamposBusqueda.GetString("estructura")
-                            ));
+                        switch ((UIElements.TipoElemento) sqldr_ObtenerElementosLayout.GetInt32("idTipoElemento") )
+                        {
+                            case UIElements.TipoElemento.GridView:
+                                listaCampos.Add(new ElementoLayoutGrid(
+                                    tipoElemento: (UIElements.TipoElemento)sqldr_ObtenerElementosLayout.GetInt32("idTipoElemento"),
+                                    ancho: sqldr_ObtenerElementosLayout.GetInt32("ancho"),
+                                    alto: sqldr_ObtenerElementosLayout.GetInt32("alto"),
+                                    elementosJSON: sqldr_ObtenerElementosLayout.GetString("elementos"),
+                                    columnasJSON: sqldr_ObtenerElementosLayout.GetString("estructura"),
+                                    dock: sqldr_ObtenerElementosLayout.GetString("dock")
+                                    ));
+                                break;
+                            case UIElements.TipoElemento.CardVistaPrevia:
+                                listaCampos.Add(new ElementoLayoutCardVistaPrevia(
+                                   tipoElemento: (UIElements.TipoElemento)sqldr_ObtenerElementosLayout.GetInt32("idTipoElemento"),
+                                   ancho: sqldr_ObtenerElementosLayout.GetInt32("ancho"),
+                                   alto: sqldr_ObtenerElementosLayout.GetInt32("alto"),
+                                   camposJSON: sqldr_ObtenerElementosLayout.GetString("estructura"),
+                                   dock: sqldr_ObtenerElementosLayout.GetString("dock")
+                                   ));
+                                break;
+                        }
+                        
                     }
                 }
             }
@@ -89,13 +105,13 @@ namespace ly_datos
             }
             finally
             {
-                if (sqldr_ObtenerCamposBusqueda != null)
+                if (sqldr_ObtenerElementosLayout != null)
                 {
-                    if (!sqldr_ObtenerCamposBusqueda.IsClosed)
+                    if (!sqldr_ObtenerElementosLayout.IsClosed)
                     {
-                        sqldr_ObtenerCamposBusqueda.Close();
+                        sqldr_ObtenerElementosLayout.Close();
                     }
-                    sqldr_ObtenerCamposBusqueda.Dispose();
+                    sqldr_ObtenerElementosLayout.Dispose();
                 }
             }
             return listaCampos;
