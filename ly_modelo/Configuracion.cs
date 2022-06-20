@@ -7,6 +7,7 @@ namespace ly_modelo
     public static class Sistema
     {
         private static Dictionary<string, Valor> Configuraciones = new Dictionary<string, Valor>();
+        public static Usuario usuarioSesion=new Usuario();
 
         public static int obtenerConfiguracionInt(string parametro)
         {
@@ -37,6 +38,14 @@ namespace ly_modelo
                         break;
                 }
             }
+        }
+
+        public static void iniciarSesion(Usuario usuario)
+        {
+            usuarioSesion.nombre = usuario.nombre;
+            usuarioSesion.nombre = usuario.login;
+            usuarioSesion.idUsuario = usuario.idUsuario;
+            usuarioSesion.idRol = usuario.idRol;
         }
 
         public class Valor
@@ -73,9 +82,9 @@ namespace ly_modelo
                 this.tipoValor = tipoValor;
         }
 
-        public static List<UIElements.campoBusqueda> camposBusqueda()
+        public static List<UIElements.CampoEstructura> camposBusqueda()
         {
-            List<UIElements.campoBusqueda> campos = new List<UIElements.campoBusqueda>();
+            List<UIElements.CampoEstructura> campos = new List<UIElements.CampoEstructura>();
             //campos.Add(new UIElements.campoBusqueda("Parámetro", 150, UIElements.campoBusqueda.TipoCampo.COMBO_BOX));
             //campos.Add(new UIElements.campoBusqueda("Empresa", 150, UIElements.campoBusqueda.TipoCampo.COMBO_BOX));
             //campos.Add(new UIElements.campoBusqueda("Tipo de parámetro", 150, UIElements.campoBusqueda.TipoCampo.COMBO_BOX));

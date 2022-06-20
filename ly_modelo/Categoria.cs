@@ -18,9 +18,9 @@ namespace ly_modelo
             this.estatus = estatus;
         }
 
-        public static List<UIElements.campoBusqueda> camposBusqueda()
+        public static List<UIElements.CampoEstructura> camposBusqueda()
         {
-            List<UIElements.campoBusqueda> campos = new List<UIElements.campoBusqueda>();
+            List<UIElements.CampoEstructura> campos = new List<UIElements.CampoEstructura>();
             //campos.Add(new UIElements.campoBusqueda("Categoria", 150, UIElements.campoBusqueda.TipoCampo.COMBO_BOX));
             //campos.Add(new UIElements.campoBusqueda("Activo", 150, UIElements.campoBusqueda.TipoCampo.CHECK_BOX));
 

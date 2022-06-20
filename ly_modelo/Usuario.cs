@@ -10,18 +10,20 @@ namespace ly_modelo
         public string nombre { get; set; }
         public string login { get; set; }
         public string password { get; set; }
-        public int estatus { get; set; }
+        public bool activo { get; set; }
         public int idRol { get; set; }
 
-        public Usuario(int idUsuario, string nombre, string login, int estatus, int idRol, string password = "")
+        public Usuario(int idUsuario, string nombre, string login, bool activo, int idRol, string password = "")
         {
             this.idUsuario = idUsuario;
             this.nombre = nombre;
             this.login = login;
             this.password = password;
-            this.estatus = estatus;
+            this.activo = activo;
             this.idRol = idRol;
         }
+
+        public Usuario() { }
 
     }
 }

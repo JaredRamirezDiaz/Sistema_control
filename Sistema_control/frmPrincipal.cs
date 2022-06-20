@@ -23,19 +23,14 @@ namespace Sistema_control
         private int escala_icono_menu = 32;
         private int alto_boton_menu = 50;
 
-        private int lx,ly;
-        private int ancho_pantalla_default=1300, alto_pantalla_default = 650;
+       
 
         public frmPrincipal()
         {
             InitializeComponent();
+            crearMenu();
+
         }
-
-        [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
-        private extern static void ReleaseCapture();
-        [DllImport("user32.DLL", EntryPoint = "SendMessage")]
-        private extern static void SendMessage(System.IntPtr hwnd, int wmsg, int wparam, int lparam);
-
 
         private void frmPrincipal_Load(object sender, EventArgs e)
         {
@@ -43,10 +38,21 @@ namespace Sistema_control
             //this.WindowState = FormWindowState.Maximized;
             panPrincipalVentana.MinimumSize = new Size(30, 30);
             
-            crearMenu();
         }
 
+        #region funcionamiento Ventana
+
+        private int lx, ly;
+        private int ancho_pantalla_default = 1300, alto_pantalla_default = 650;
+
+        [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
+        private extern static void ReleaseCapture();
+        [DllImport("user32.DLL", EntryPoint = "SendMessage")]
+        private extern static void SendMessage(System.IntPtr hwnd, int wmsg, int wparam, int lparam);
+
+
         //RESIZE METODO PARA REDIMENCIONAR/CAMBIAR TAMAÑO A FORMULARIO EN TIEMPO DE EJECUCION ----------------------------------------------------------
+
         private int tolerance = 12;
         private const int WM_NCHITTEST = 132;
         private const int HTBOTTOMRIGHT = 17;
@@ -93,27 +99,86 @@ namespace Sistema_control
             ControlPaint.DrawSizeGrip(e.Graphics, Color.Transparent, sizeGripRectangle);
         }
 
+        private void iconPictureBox4_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void iconMaximizar_Click(object sender, EventArgs e)
+        {
+            lx = this.Location.X;
+            ly = this.Location.Y;
+            ancho_pantalla_default = this.Size.Width;
+            alto_pantalla_default = this.Size.Height;
+            this.Size = Screen.PrimaryScreen.WorkingArea.Size;
+            this.Location = Screen.PrimaryScreen.WorkingArea.Location;
+            iconVentana.Visible = true;
+            iconMaximizar.Visible = false;
+        }
+
+        private void iconVentana_Click(object sender, EventArgs e)
+        {
+            this.Size = new Size(ancho_pantalla_default, alto_pantalla_default);
+            this.Location = new Point(lx, ly);
+            iconVentana.Visible = false;
+            iconMaximizar.Visible = true;
+        }
+
+        private void iconMinimizar_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
+        }
+
+        private void panSuperior_MouseDown(object sender, MouseEventArgs e)
+        {
+            ReleaseCapture();
+            SendMessage(this.Handle, 0x112, 0xf012, 0);
+        }
+
+        #endregion
+
+
+
         private void AbrirFormulario<MiForm>(string tipo,string nombre) where MiForm : Form, new()
         {
             Form formulario;
             formulario = (Form)panContenedorPrincipal.Controls.OfType<MiForm>().FirstOrDefault(frm => frm.Text== tipo+nombre);
-            
 
             if (formulario == null)
             {
-                formulario = new MiForm();
-                formulario.Text = tipo + nombre;
-                ((frmCatalogo)formulario).titulo = nombre;
-                ((frmCatalogo)formulario).tipoForm = nombre;
-                ((frmCatalogo)formulario).datosIniciales();
 
-                formulario.TopLevel = false;
-                formulario.FormBorderStyle = FormBorderStyle.None;
-                formulario.Dock = DockStyle.Fill;
-                panContenedorPrincipal.Controls.Add(formulario);
-                panContenedorPrincipal.Tag = formulario;
-                formulario.Show();
-                formulario.BringToFront();
+                switch (tipo)
+                {
+                    case "Catalogo":
+                        formulario = new MiForm();
+                        formulario.Text = tipo + nombre;
+                        ((frmCatalogo)formulario).nombreCatalogo = nombre;
+                        ((frmCatalogo)formulario).datosIniciales();
+
+                        formulario.TopLevel = false;
+                        formulario.FormBorderStyle = FormBorderStyle.None;
+                        formulario.Dock = DockStyle.Fill;
+                        panContenedorPrincipal.Controls.Add(formulario);
+                        panContenedorPrincipal.Tag = formulario;
+                        formulario.Show();
+                        formulario.BringToFront();
+                        break;
+
+                    case "PuntoDeVenta":
+                        formulario = new frmPuntoDeVenta();
+                        formulario.Text = tipo + nombre;
+
+                        formulario.TopLevel = false;
+                        formulario.FormBorderStyle = FormBorderStyle.None;
+                        formulario.Dock = DockStyle.Fill;
+                        panContenedorPrincipal.Controls.Add(formulario);
+                        panContenedorPrincipal.Tag = formulario;
+                        formulario.Show();
+                        formulario.BringToFront();
+                        break;
+                    default:
+                        break;
+                }
             }
             //si el formulario/instancia existe
             else
@@ -124,28 +189,14 @@ namespace Sistema_control
 
         private void crearMenu()
         {
-            //List<Configuracion> config = neg_Configuracion.obtenerTodos(idEmpresa:1);
-            //Color colorPrimario = System.Drawing.ColorTranslator.FromHtml(config.Find(conf => conf.nombreParametro == "color_primario").valor);
-            //Color colorSecundario = System.Drawing.ColorTranslator.FromHtml(config.Find(conf => conf.nombreParametro == "color_secundario").valor);
-            //Color colorTexto = System.Drawing.ColorTranslator.FromHtml(config.Find(conf => conf.nombreParametro == "color_texto_primario").valor);
-            //Color colorTextoSecundario = System.Drawing.ColorTranslator.FromHtml(config.Find(conf => conf.nombreParametro == "color_texto_secundario").valor);
-            //Color colorBarraSuperior = System.Drawing.ColorTranslator.FromHtml(config.Find(conf => conf.nombreParametro == "color_barra_superior").valor);
-            //Color colorTextoBarraSuperior = System.Drawing.ColorTranslator.FromHtml(config.Find(conf => conf.nombreParametro == "color_texto_barra_superior").valor);
-
-            List<Catalogo> listaCatalogos = neg_Catalogo.obtenerTodos();
-
-
             
-            
-            //int heightBoton =(panMenu.Height / listaCatalogos.Count)-(margenYMenu);
+
+            List<Catalogo> listaCatalogos = neg_Catalogo.obtenerTodos(Sistema.usuarioSesion.idUsuario);
              
             int widthBoton = ancho_panel_izquierdo;
             
             panMenu.BackColor = Sistema.obtenerConfiguracionColor("color_primario");
             
-            //panMenu.Width = anchoPanelIzq;
-            //panMenu.Location=new Point(0, panMenu.Location.Y);
-
             panLateralIzq.BackColor = Sistema.obtenerConfiguracionColor("color_primario");
             panLateralIzq.Width = Sistema.obtenerConfiguracionInt("ancho_panel_izquierdo");
 
@@ -155,19 +206,16 @@ namespace Sistema_control
             iconMinimizar.ForeColor = Sistema.obtenerConfiguracionColor("color_texto_barra_superior");
             iconVentana.ForeColor = Sistema.obtenerConfiguracionColor("color_texto_barra_superior");
             iconColapsarMenu.ForeColor = Sistema.obtenerConfiguracionColor("color_texto_primario");
-            
-
-
 
             for (int i = 0; i < listaCatalogos.Count; i++)
             {
                 int posY = (alto_boton_menu * i) + ((int)(margen_y_Menu * (i + 0.5)));
                 int posX = (int)(margen_x_menu * .5);
-                panMenu.Controls.Add(createButtonMenu(new Point(posX, posY), alto_boton_menu, widthBoton, listaCatalogos[i].iconoMenuFA, listaCatalogos[i].nombre));
+                panMenu.Controls.Add(createButtonMenu(new Point(posX, posY), alto_boton_menu, widthBoton, listaCatalogos[i].iconoMenuFA, listaCatalogos[i].nombre, listaCatalogos[i].formulario));
             }
         }
 
-        private Button createButtonMenu(Point location, double height, int width, int urlImagen,string textoBoton)
+        private Button createButtonMenu(Point location, double height, int width, int urlImagen,string textoBoton,string formulario)
         {
             // This will get the current WORKING directory (i.e. \bin\Debug)
             string workingDirectory = Environment.CurrentDirectory;
@@ -198,7 +246,7 @@ namespace Sistema_control
             nuevoBoton.MouseEnter += (object sender, EventArgs e) => { ((StlButton)sender).ForeColor = Sistema.obtenerConfiguracionColor("color_primario"); ((StlButton)sender).IconColor = Sistema.obtenerConfiguracionColor("color_primario"); };
             nuevoBoton.MouseLeave += (object sender, EventArgs e) => { ((StlButton)sender).ForeColor = Sistema.obtenerConfiguracionColor("color_texto_secundario"); ((StlButton)sender).IconColor = Sistema.obtenerConfiguracionColor("color_texto_secundario"); };
 
-            nuevoBoton.Click += (object sender, EventArgs e) => { AbrirFormulario<frmCatalogo>("Catalogo",textoBoton); };
+            nuevoBoton.Click += (object sender, EventArgs e) => { AbrirFormulario<frmCatalogo>(formulario,textoBoton); };
 
             return nuevoBoton;
         }
@@ -222,40 +270,8 @@ namespace Sistema_control
 
         }
 
-        private void iconPictureBox4_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
+       
 
-        private void iconMaximizar_Click(object sender, EventArgs e)
-        {
-            lx = this.Location.X;
-            ly = this.Location.Y;
-            ancho_pantalla_default = this.Size.Width;
-            alto_pantalla_default = this.Size.Height;
-            this.Size = Screen.PrimaryScreen.WorkingArea.Size;
-            this.Location = Screen.PrimaryScreen.WorkingArea.Location;
-            iconVentana.Visible = true;
-            iconMaximizar.Visible = false;
-        }
-
-        private void iconVentana_Click(object sender, EventArgs e)
-        {
-            this.Size = new Size(ancho_pantalla_default,alto_pantalla_default);
-            this.Location = new Point(lx,ly);
-            iconVentana.Visible = false;
-            iconMaximizar.Visible = true;
-        }
-
-        private void iconMinimizar_Click(object sender, EventArgs e)
-        {
-            this.WindowState = FormWindowState.Minimized;
-        }
-
-        private void panSuperior_MouseDown(object sender, MouseEventArgs e)
-        {
-            ReleaseCapture();
-            SendMessage(this.Handle,0x112,0xf012,0);
-        }
+        
     }
 }

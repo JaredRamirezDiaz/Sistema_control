@@ -35,10 +35,10 @@ namespace Sistema_control
             this.panLateralSuperior = new System.Windows.Forms.Panel();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.panSuperior = new System.Windows.Forms.Panel();
-            this.iconVentana = new FontAwesome.Sharp.IconPictureBox();
             this.iconSalir = new FontAwesome.Sharp.IconPictureBox();
             this.iconMinimizar = new FontAwesome.Sharp.IconPictureBox();
             this.iconMaximizar = new FontAwesome.Sharp.IconPictureBox();
+            this.iconVentana = new FontAwesome.Sharp.IconPictureBox();
             this.iconColapsarMenu = new FontAwesome.Sharp.IconPictureBox();
             this.panContenedorPrincipal = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -48,10 +48,10 @@ namespace Sistema_control
             this.panLateralSuperior.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.panSuperior.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.iconVentana)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.iconSalir)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.iconMinimizar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.iconMaximizar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.iconVentana)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.iconColapsarMenu)).BeginInit();
             this.panContenedorPrincipal.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -115,10 +115,10 @@ namespace Sistema_control
             // 
             // panSuperior
             // 
-            this.panSuperior.Controls.Add(this.iconVentana);
             this.panSuperior.Controls.Add(this.iconSalir);
             this.panSuperior.Controls.Add(this.iconMinimizar);
             this.panSuperior.Controls.Add(this.iconMaximizar);
+            this.panSuperior.Controls.Add(this.iconVentana);
             this.panSuperior.Dock = System.Windows.Forms.DockStyle.Top;
             this.panSuperior.Location = new System.Drawing.Point(0, 0);
             this.panSuperior.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -127,27 +127,6 @@ namespace Sistema_control
             this.panSuperior.Size = new System.Drawing.Size(1300, 30);
             this.panSuperior.TabIndex = 4;
             this.panSuperior.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panSuperior_MouseDown);
-            // 
-            // iconVentana
-            // 
-            this.iconVentana.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.iconVentana.BackColor = System.Drawing.SystemColors.Control;
-            this.iconVentana.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.iconVentana.Flip = FontAwesome.Sharp.FlipOrientation.Horizontal;
-            this.iconVentana.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.iconVentana.IconChar = FontAwesome.Sharp.IconChar.Clone;
-            this.iconVentana.IconColor = System.Drawing.SystemColors.ControlText;
-            this.iconVentana.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.iconVentana.IconSize = 25;
-            this.iconVentana.Location = new System.Drawing.Point(1240, 5);
-            this.iconVentana.Name = "iconVentana";
-            this.iconVentana.Rotation = 90D;
-            this.iconVentana.Size = new System.Drawing.Size(25, 25);
-            this.iconVentana.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.iconVentana.TabIndex = 5;
-            this.iconVentana.TabStop = false;
-            this.iconVentana.Visible = false;
-            this.iconVentana.Click += new System.EventHandler(this.iconVentana_Click);
             // 
             // iconSalir
             // 
@@ -204,6 +183,27 @@ namespace Sistema_control
             this.iconMaximizar.TabStop = false;
             this.iconMaximizar.Click += new System.EventHandler(this.iconMaximizar_Click);
             // 
+            // iconVentana
+            // 
+            this.iconVentana.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.iconVentana.BackColor = System.Drawing.SystemColors.Control;
+            this.iconVentana.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.iconVentana.Flip = FontAwesome.Sharp.FlipOrientation.Horizontal;
+            this.iconVentana.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.iconVentana.IconChar = FontAwesome.Sharp.IconChar.Clone;
+            this.iconVentana.IconColor = System.Drawing.SystemColors.ControlText;
+            this.iconVentana.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.iconVentana.IconSize = 25;
+            this.iconVentana.Location = new System.Drawing.Point(1240, 5);
+            this.iconVentana.Name = "iconVentana";
+            this.iconVentana.Rotation = 90D;
+            this.iconVentana.Size = new System.Drawing.Size(25, 25);
+            this.iconVentana.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.iconVentana.TabIndex = 5;
+            this.iconVentana.TabStop = false;
+            this.iconVentana.Visible = false;
+            this.iconVentana.Click += new System.EventHandler(this.iconVentana_Click);
+            // 
             // iconColapsarMenu
             // 
             this.iconColapsarMenu.BackColor = System.Drawing.SystemColors.Control;
@@ -217,7 +217,6 @@ namespace Sistema_control
             this.iconColapsarMenu.IconSize = 30;
             this.iconColapsarMenu.Location = new System.Drawing.Point(0, 0);
             this.iconColapsarMenu.Name = "iconColapsarMenu";
-            this.iconColapsarMenu.Rotation = 180D;
             this.iconColapsarMenu.Size = new System.Drawing.Size(30, 30);
             this.iconColapsarMenu.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.iconColapsarMenu.TabIndex = 1;
@@ -286,10 +285,10 @@ namespace Sistema_control
             this.panLateralSuperior.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.panSuperior.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.iconVentana)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.iconSalir)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.iconMinimizar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.iconMaximizar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.iconVentana)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.iconColapsarMenu)).EndInit();
             this.panContenedorPrincipal.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

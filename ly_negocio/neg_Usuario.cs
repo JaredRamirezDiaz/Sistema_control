@@ -6,11 +6,15 @@ using ly_datos;
 
 namespace ly_negocio
 {
-    class neg_Usuario
+    public static class neg_Usuario
     {
         public static List<Usuario> obtenerTodos()
         {
             return dat_Usuario.obtenerTodos();
+        }
+        public static Usuario iniciarSesion(string usuario, string password)
+        {
+            return dat_Usuario.iniciarSesion(usuario,password);
         }
         public static bool agregar(Usuario usuario)
         {

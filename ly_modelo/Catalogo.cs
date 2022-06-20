@@ -13,10 +13,11 @@ namespace ly_modelo
         public string storedProcedure { get; set; }
         public bool controlSistema { get; set; }
         public bool layoutPersonalizado { get; set; }
+        public string formulario { get; set; }
 
         //public string categoriaCatalogo { get; set; }
 
-        public Catalogo(int idCatalogo, string nombre, int icono,string storedProcedure,bool controlSistema, bool layoutPersonalizado)
+        public Catalogo(int idCatalogo, string nombre, int icono,string storedProcedure,bool controlSistema, bool layoutPersonalizado,string formulario)
         {
             this.idCatalogo = idCatalogo;
             this.nombre = nombre;
@@ -24,6 +25,7 @@ namespace ly_modelo
             this.storedProcedure = storedProcedure;
             this.controlSistema = controlSistema;
             this.layoutPersonalizado = layoutPersonalizado;
+            this.formulario = formulario;
         }
 
     }

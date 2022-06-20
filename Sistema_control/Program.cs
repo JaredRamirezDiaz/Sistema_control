@@ -19,8 +19,10 @@ namespace Sistema_control
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
             Sistema.cargarConfiguraciones(neg_Configuracion.obtenerTodos(idEmpresa:1));
-            Application.Run(new frmPrincipal());
+            
+            Application.Run(new inicioSesion());
         }
     }
 }

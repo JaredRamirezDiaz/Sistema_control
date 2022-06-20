@@ -32,10 +32,11 @@ namespace Sistema_control
             this.panSuperiorCatalogo = new System.Windows.Forms.Panel();
             this.btnBusqueda = new Sistema_control.StlButton();
             this.btnCerrarCatalogo = new FontAwesome.Sharp.IconPictureBox();
-            this.panInferiorCatalogo = new System.Windows.Forms.Panel();
+            this.panInferiorPuntoDeVenta = new System.Windows.Forms.Panel();
             this.panPrincipalCatalogo = new System.Windows.Forms.Panel();
-            this.panControlesCatalogo = new System.Windows.Forms.Panel();
+            this.panControlesPuntoDeVenta = new System.Windows.Forms.Panel();
             this.panFlowBusqueda = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnAgregar = new Sistema_control.StlButton();
             this.panSuperiorCatalogo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnCerrarCatalogo)).BeginInit();
             this.panPrincipalCatalogo.SuspendLayout();
@@ -44,6 +45,7 @@ namespace Sistema_control
             // panSuperiorCatalogo
             // 
             this.panSuperiorCatalogo.BackColor = System.Drawing.SystemColors.Control;
+            this.panSuperiorCatalogo.Controls.Add(this.btnAgregar);
             this.panSuperiorCatalogo.Controls.Add(this.btnBusqueda);
             this.panSuperiorCatalogo.Controls.Add(this.btnCerrarCatalogo);
             this.panSuperiorCatalogo.Dock = System.Windows.Forms.DockStyle.Top;
@@ -76,6 +78,7 @@ namespace Sistema_control
             this.btnBusqueda.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnBusqueda.TextColor = System.Drawing.Color.White;
             this.btnBusqueda.UseVisualStyleBackColor = false;
+            this.btnBusqueda.Visible = false;
             this.btnBusqueda.Click += new System.EventHandler(this.btnBusqueda_Click);
             // 
             // btnCerrarCatalogo
@@ -97,18 +100,18 @@ namespace Sistema_control
             this.btnCerrarCatalogo.TabStop = false;
             this.btnCerrarCatalogo.Click += new System.EventHandler(this.btnCerrarCatalogo_Click);
             // 
-            // panInferiorCatalogo
+            // panInferiorPuntoDeVenta
             // 
-            this.panInferiorCatalogo.BackColor = System.Drawing.SystemColors.Control;
-            this.panInferiorCatalogo.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panInferiorCatalogo.Location = new System.Drawing.Point(0, 620);
-            this.panInferiorCatalogo.Name = "panInferiorCatalogo";
-            this.panInferiorCatalogo.Size = new System.Drawing.Size(1300, 30);
-            this.panInferiorCatalogo.TabIndex = 1;
+            this.panInferiorPuntoDeVenta.BackColor = System.Drawing.SystemColors.Control;
+            this.panInferiorPuntoDeVenta.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panInferiorPuntoDeVenta.Location = new System.Drawing.Point(0, 620);
+            this.panInferiorPuntoDeVenta.Name = "panInferiorPuntoDeVenta";
+            this.panInferiorPuntoDeVenta.Size = new System.Drawing.Size(1300, 30);
+            this.panInferiorPuntoDeVenta.TabIndex = 1;
             // 
             // panPrincipalCatalogo
             // 
-            this.panPrincipalCatalogo.Controls.Add(this.panControlesCatalogo);
+            this.panPrincipalCatalogo.Controls.Add(this.panControlesPuntoDeVenta);
             this.panPrincipalCatalogo.Controls.Add(this.panFlowBusqueda);
             this.panPrincipalCatalogo.Controls.Add(this.panSuperiorCatalogo);
             this.panPrincipalCatalogo.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -117,14 +120,14 @@ namespace Sistema_control
             this.panPrincipalCatalogo.Size = new System.Drawing.Size(1300, 620);
             this.panPrincipalCatalogo.TabIndex = 2;
             // 
-            // panControlesCatalogo
+            // panControlesPuntoDeVenta
             // 
-            this.panControlesCatalogo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panControlesCatalogo.Location = new System.Drawing.Point(0, 30);
-            this.panControlesCatalogo.Name = "panControlesCatalogo";
-            this.panControlesCatalogo.Padding = new System.Windows.Forms.Padding(0, 5, 0, 5);
-            this.panControlesCatalogo.Size = new System.Drawing.Size(1300, 590);
-            this.panControlesCatalogo.TabIndex = 1;
+            this.panControlesPuntoDeVenta.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panControlesPuntoDeVenta.Location = new System.Drawing.Point(0, 30);
+            this.panControlesPuntoDeVenta.Name = "panControlesPuntoDeVenta";
+            this.panControlesPuntoDeVenta.Padding = new System.Windows.Forms.Padding(0, 5, 0, 5);
+            this.panControlesPuntoDeVenta.Size = new System.Drawing.Size(1300, 590);
+            this.panControlesPuntoDeVenta.TabIndex = 1;
             // 
             // panFlowBusqueda
             // 
@@ -134,13 +137,39 @@ namespace Sistema_control
             this.panFlowBusqueda.Size = new System.Drawing.Size(1300, 0);
             this.panFlowBusqueda.TabIndex = 0;
             // 
+            // btnAgregar
+            // 
+            this.btnAgregar.BackColor = System.Drawing.Color.DarkGray;
+            this.btnAgregar.BackgroundColor = System.Drawing.Color.DarkGray;
+            this.btnAgregar.BorderColor = System.Drawing.Color.DimGray;
+            this.btnAgregar.BorderRadius = 5;
+            this.btnAgregar.BorderSize = 1;
+            this.btnAgregar.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnAgregar.FlatAppearance.BorderSize = 0;
+            this.btnAgregar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAgregar.ForeColor = System.Drawing.Color.White;
+            this.btnAgregar.IconChar = FontAwesome.Sharp.IconChar.Plus;
+            this.btnAgregar.IconColor = System.Drawing.Color.White;
+            this.btnAgregar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnAgregar.IconSize = 25;
+            this.btnAgregar.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.btnAgregar.Location = new System.Drawing.Point(90, 0);
+            this.btnAgregar.Name = "btnAgregar";
+            this.btnAgregar.Size = new System.Drawing.Size(85, 30);
+            this.btnAgregar.TabIndex = 3;
+            this.btnAgregar.Text = "Agregar";
+            this.btnAgregar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnAgregar.TextColor = System.Drawing.Color.White;
+            this.btnAgregar.UseVisualStyleBackColor = false;
+            this.btnAgregar.Visible = false;
+            // 
             // frmCatalogo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1300, 650);
             this.Controls.Add(this.panPrincipalCatalogo);
-            this.Controls.Add(this.panInferiorCatalogo);
+            this.Controls.Add(this.panInferiorPuntoDeVenta);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmCatalogo";
             this.Text = "Catalogo";
@@ -154,11 +183,12 @@ namespace Sistema_control
         #endregion
 
         private System.Windows.Forms.Panel panSuperiorCatalogo;
-        private System.Windows.Forms.Panel panInferiorCatalogo;
+        private System.Windows.Forms.Panel panInferiorPuntoDeVenta;
         private System.Windows.Forms.Panel panPrincipalCatalogo;
         private FontAwesome.Sharp.IconPictureBox btnCerrarCatalogo;
         private System.Windows.Forms.FlowLayoutPanel panFlowBusqueda;
-        private System.Windows.Forms.Panel panControlesCatalogo;
+        private System.Windows.Forms.Panel panControlesPuntoDeVenta;
         private StlButton btnBusqueda;
+        private StlButton btnAgregar;
     }
 }
