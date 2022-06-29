@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using ly_modelo;
-using Microsoft.Data.SqlClient;
+using System.Data.SqlClient;
 using System.Data;
 using System.Text.Json;
 
@@ -42,6 +42,13 @@ namespace ly_datos
                         switch ((UIElements.TipoElemento) sqldr_ObtenerElementosLayout.GetInt32("idTipoElemento") )
                         {
                             case UIElements.TipoElemento.GridView:
+                                int tipoElementod = sqldr_ObtenerElementosLayout.GetInt32("idTipoElemento");
+                                int ancho= sqldr_ObtenerElementosLayout.GetInt32("ancho");
+                                int alto= sqldr_ObtenerElementosLayout.GetInt32("alto");
+                                string elementosJSON= sqldr_ObtenerElementosLayout.GetString("elementos");
+                                string columnasJSON= sqldr_ObtenerElementosLayout.GetString("estructura");
+                                string dock= sqldr_ObtenerElementosLayout.GetString("dock");
+                                string fuenteDeDatos= sqldr_ObtenerElementosLayout.GetString("fuenteDeDatos");
                                 listaCampos.Add(new ElementoLayoutGrid(
                                     tipoElemento: (UIElements.TipoElemento)sqldr_ObtenerElementosLayout.GetInt32("idTipoElemento"),
                                     ancho: sqldr_ObtenerElementosLayout.GetInt32("ancho"),

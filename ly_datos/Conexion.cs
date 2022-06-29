@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Microsoft.Data.SqlClient;
+using System.Data.SqlClient;
 
 namespace ly_datos
 {

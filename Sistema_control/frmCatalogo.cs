@@ -140,15 +140,16 @@ namespace Sistema_control
                 switch ((UIElements.TipoElemento)elementosLayout[i].tipoElemento)
                 {
                     case UIElements.TipoElemento.GridView:
-                        DataGridView nuevoGrid = crearGrid((elementosLayout[i] as ElementoLayoutGrid));
-                        controles.Add(nuevoGrid);
+                        Panel panelGrid = crearGrid((elementosLayout[i] as ElementoLayoutGrid));
+                        DataGridView nuevoGrid = panelGrid.Controls[0] as DataGridView;
+                        controles.Add(panelGrid);
                         controlesLayout.Add(nuevoGrid.Name, UIElements.TipoElemento.GridView.ToString());
                         break;
                     case UIElements.TipoElemento.CardVistaPrevia:
                         Panel cardView = crearCardVistaPrevia((elementosLayout[i] as ElementoLayoutCardVistaPrevia));
                         if (elementosLayout.Exists(elemento=>(elemento.tipoElemento==UIElements.TipoElemento.GridView && (elemento as ElementoLayoutGrid).fuenteDeDatos==(elementosLayout[i] as ElementoLayoutCardVistaPrevia).fuenteDeDatos )))
                         {
-                            DataGridView grid = (DataGridView)controles[elementosLayout.FindIndex(elemento => (elemento.tipoElemento == UIElements.TipoElemento.GridView && (elemento as ElementoLayoutGrid).fuenteDeDatos == (elementosLayout[i] as ElementoLayoutCardVistaPrevia).fuenteDeDatos))];
+                            DataGridView grid = (DataGridView)controles[elementosLayout.FindIndex(elemento => (elemento.tipoElemento == UIElements.TipoElemento.GridView && (elemento as ElementoLayoutGrid).fuenteDeDatos == (elementosLayout[i] as ElementoLayoutCardVistaPrevia).fuenteDeDatos))].Controls[0];
 
                             grid.SelectionChanged += (object sender, EventArgs e) => {
                                 if ((sender as DataGridView).SelectedRows.Count>0 && (sender as DataGridView).SelectedRows[0].Cells[0].Value !=null)
@@ -229,10 +230,11 @@ namespace Sistema_control
             //}
         }
 
-        private DataGridView crearGrid(ElementoLayoutGrid elementoGrid)
-        {
-           
-            
+        private Panel crearGrid(ElementoLayoutGrid elementoGrid)
+        {            
+            Panel nuevoPanelGrid = new Panel();
+            nuevoPanelGrid.Padding = new Padding(5);
+
             DataGridView nuevoGrid = new DataGridView();
             //nuevoGrid.Size = new Size(panControlesCatalogo.Width/2, elementoGrid.alto);
             //var d = nuevoGrid.Anchor;
@@ -241,7 +243,7 @@ namespace Sistema_control
             foreach (UIElements.CampoEstructura column in elementoGrid.columnas)
             {
                 DataGridViewColumn nuevaCol = new DataGridViewColumn();
-                nuevaCol.HeaderText = column.columna;
+                nuevaCol.HeaderText = column.etiqueta;
                 nuevaCol.Name = column.columna;
                 nuevaCol.Visible = column.visible;
                 nuevaCol.CellTemplate= new DataGridViewTextBoxCell();
@@ -266,36 +268,36 @@ namespace Sistema_control
             switch (elementoGrid.dock)
             {
                 case "Top":
-                    nuevoGrid.Dock = DockStyle.Top;
+                    nuevoPanelGrid.Dock = DockStyle.Top;
                     //nuevoGrid.Height = elementoGrid.alto;
                     //nuevoGrid.Width = panControlesCatalogo.Width;
                     //nuevoGrid.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
                     break;
                 case "Right":
-                    nuevoGrid.Dock = DockStyle.Right;
-                    //nuevoGrid.Width = elementoGrid.ancho;
+                    nuevoPanelGrid.Dock = DockStyle.Right;
+                    nuevoPanelGrid.Width = elementoGrid.ancho;
                     //nuevoGrid.Height = panControlesCatalogo.Height;
                     //nuevoGrid.Anchor = AnchorStyles.Left | AnchorStyles.Right;
                     break;
                 case "Bottom":
-                    nuevoGrid.Dock = DockStyle.Bottom;
+                    nuevoPanelGrid.Dock = DockStyle.Bottom;
                     //nuevoGrid.Anchor = AnchorStyles.Bottom | AnchorStyles.Top ;
-                    //nuevoGrid.Height = elementoGrid.alto;
+                    nuevoPanelGrid.Height = elementoGrid.alto;
                     //nuevoPanelGrid.Width = panControlesCatalogo.Width;
                     break;
                 case "Left":
-                    nuevoGrid.Dock = DockStyle.Left;
-                    //nuevoGrid.Width = elementoGrid.ancho;
+                    nuevoPanelGrid.Dock = DockStyle.Left;
+                    nuevoPanelGrid.Width = elementoGrid.ancho;
                     //nuevoGrid.Height = panControlesCatalogo.Height;
                     //nuevoGrid.Anchor = AnchorStyles.Left | AnchorStyles.Right;
                     break;
                 case "Fill":
-                    nuevoGrid.Dock = DockStyle.Fill;
+                    nuevoPanelGrid.Dock = DockStyle.Fill;
                     break;
                 default:
-                    nuevoGrid.Dock = DockStyle.None;
+                    nuevoPanelGrid.Dock = DockStyle.None;
                     //nuevoGrid.Width = elementoGrid.ancho;
-                    //nuevoGrid.Height = elementoGrid.alto;
+                    nuevoPanelGrid.Height = elementoGrid.alto;
                     //nuevoGrid.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top | AnchorStyles.Bottom;
 
                     break;
@@ -309,9 +311,9 @@ namespace Sistema_control
             nuevoGrid.DefaultCellStyle.ForeColor= Sistema.obtenerConfiguracionColor("color_texto_primario");
             nuevoGrid.GridColor= Sistema.obtenerConfiguracionColor("color_fondo_sistema");
             nuevoGrid.EnableHeadersVisualStyles = false;
-            nuevoGrid.ColumnHeadersDefaultCellStyle.BackColor= Sistema.obtenerConfiguracionColor("color_barra_superior"); 
-            nuevoGrid.ColumnHeadersDefaultCellStyle.ForeColor= Sistema.obtenerConfiguracionColor("color_texto_barra_superior");
-            nuevoGrid.ColumnHeadersDefaultCellStyle.SelectionBackColor= Sistema.obtenerConfiguracionColor("color_primario");
+            nuevoGrid.ColumnHeadersDefaultCellStyle.BackColor= Sistema.obtenerConfiguracionColor("color_texto_secundario"); 
+            nuevoGrid.ColumnHeadersDefaultCellStyle.ForeColor= Sistema.obtenerConfiguracionColor("color_texto_primario");
+            nuevoGrid.ColumnHeadersDefaultCellStyle.SelectionBackColor= Sistema.obtenerConfiguracionColor("color_texto_secundario");
             nuevoGrid.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             nuevoGrid.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             nuevoGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
@@ -320,15 +322,30 @@ namespace Sistema_control
 
             nuevoGrid.BorderStyle = BorderStyle.None;
 
+            nuevoGrid.Dock = DockStyle.Fill;
+
+            Label lblTituloGrid = new Label();
+            lblTituloGrid.Text = elementoGrid.fuenteDeDatos;
+            lblTituloGrid.Dock = DockStyle.Top;
+            lblTituloGrid.AutoSize = false;
+            lblTituloGrid.TextAlign = ContentAlignment.MiddleCenter;
+            lblTituloGrid.ForeColor= Sistema.obtenerConfiguracionColor("color_texto_barra_superior");
+            lblTituloGrid.BackColor= Sistema.obtenerConfiguracionColor("color_barra_superior");
+            lblTituloGrid.Font = new Font("Segoe UI", 12);
 
 
-            return nuevoGrid;
+
+            nuevoPanelGrid.Controls.Add(nuevoGrid);
+            nuevoPanelGrid.Controls.Add(lblTituloGrid);
+            return nuevoPanelGrid;
         }
 
         private Panel crearCardVistaPrevia(ElementoLayoutCardVistaPrevia elementoCard)
         {
             FlowLayoutPanel nuevoPanelCard = new FlowLayoutPanel();
             nuevoPanelCard.Width = elementoCard.ancho;
+            
+            nuevoPanelCard.FlowDirection = FlowDirection.TopDown;
             //nuevoPanelCard.Height = elementoCard.alto;
             //nuevoPanelCard.MaximumSize = new Size(elementoCard.ancho,elementoCard.alto);
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using ly_modelo;
-using Microsoft.Data.SqlClient;
+using System.Data.SqlClient;
 using System.Data;
 
 namespace ly_datos

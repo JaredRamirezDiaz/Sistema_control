@@ -112,7 +112,11 @@ namespace ly_modelo
             public bool requerido { get; set; }
             public int longitudMaxima { get; set; }
             public string tipoDato { get; set; }
-            
+
+            public static string SplitCamelCase(string input) { 
+                return System.Text.RegularExpressions.Regex.Replace(input, "([A-Z])", " $1", System.Text.RegularExpressions.RegexOptions.Compiled).Trim(); 
+                //Fuente: https://www.iteramos.com/pregunta/38011/la-division-de-camelcase
+            }
 
             public class CampoComboBox
             {
@@ -152,6 +156,8 @@ namespace ly_modelo
             this.dock = dock;
             this.fuenteDeDatos = fuenteDeDatos;
         }
+
+        public ElementoLayoutGrid(TipoElemento tipoElemento, int ancho, int alto) : base(tipoElemento, ancho, alto) { }
 
         public class CeldaGrid{
             public string clave { get; set; }

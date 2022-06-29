@@ -43,10 +43,10 @@ namespace Sistema_control
         {
 
             btnPagar.BackColor = Sistema.obtenerConfiguracionColor("color_primario");
-            btnBajarArticulo.BackColor = Sistema.obtenerConfiguracionColor("color_primario");
+            
             btnDescuento.BackColor = Sistema.obtenerConfiguracionColor("color_primario");
             btnEliminarArticulo.BackColor = Sistema.obtenerConfiguracionColor("color_primario");
-            btnSubirArticulo.BackColor = Sistema.obtenerConfiguracionColor("color_primario");
+            
 
             btnCancelarCompra.BackColor = Sistema.obtenerConfiguracionColor("color_texto_boton_cancelar");
 
